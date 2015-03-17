@@ -8,10 +8,14 @@ with a common shared part
 and 2 Team-specific sets of Tables.
 
 We like to set up 3 SchemaInfo-Tables to not disturb the other team where possible:
-1) SharedSchemaInfo
-2) ProjectASchemaInfo
-3) ProjectBSchemaInfo
+1) SchemaInfoShared
+2) SchemaInfoProjectA
+3) SchemaInfoProjectB
 
-The idea is to add a Meta-Attribute that defines the name of the used SchemaInfo-Table 
-or an optional parameter at [Migration()]
-that defines the Name of the SchemaInfo-Table
+
+With our Fork we've added a Parameter: SchemaTableInfo
+1) to MSBuild-Task
+2) to Console-Application (after the last required parameter)
+
+Default value is still "SchemaInfo" but now it can be overwritten.
+
