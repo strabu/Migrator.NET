@@ -14,7 +14,7 @@ and 2 Team-specific sets of Tables.
 
 
 ##With our Fork we've added a Parameter: SchemaTableInfo
-1. to MSBuild-Task
+...to MSBuild-Task
 ```
  <Migrate Provider="SqlServer" 
       SchemaInfoTableName="SchemaInfoPDB"	
@@ -22,7 +22,7 @@ and 2 Team-specific sets of Tables.
       Migrations="@(MigrationAssemblies)" To="$(SchemaVersion)"/> 
 ```
 
-2. to Console-Application (after the last required parameter)
+...to Console-Application (after the last required parameter)
 
 ```
 usage:
