@@ -7,7 +7,7 @@ We work in 2 teams that share a single Database
 with a common shared part 
 and 2 Team-specific sets of Tables.
 
-##We like to set up 3 SchemaInfo-Tables to not disturb the other team where possible:
+###We like to set up 3 SchemaInfo-Tables to not disturb the other team where possible:
 1. SchemaInfoShared
 2. SchemaInfoProjectA
 3. SchemaInfoProjectB
