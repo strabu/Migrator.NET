@@ -21,7 +21,6 @@ and 2 Team-specific sets of Tables.
       Connectionstring="the connection string comes here..."		
       Migrations="@(MigrationAssemblies)" To="$(SchemaVersion)"/> 
 ```
-
 2. to Console-Application (after the last required parameter)
 ```
 usage:
