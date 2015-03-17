@@ -72,6 +72,9 @@ namespace Migrator.MSBuild
 			get { return _connectionString; }
 		}
 
+        public string SchemaInfoTableName { get; set; }
+        
+
         /// <summary>
         /// The paths to the assemblies that contain your migrations. 
         /// This will generally just be a single item.
@@ -159,6 +162,8 @@ namespace Migrator.MSBuild
         private void Execute(Assembly asm)
 	    {
             Migrator mig = new Migrator(Provider, ConnectionString, asm, Trace, new TaskLogger(this));
+            if (SchemaInfoTableName != null)
+                mig.SchemaInfoTableName = SchemaInfoTableName;
             mig.DryRun = DryRun;
             if (ScriptChanges)
             {

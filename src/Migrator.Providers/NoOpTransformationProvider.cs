@@ -18,6 +18,12 @@ namespace Migrator.Providers
 
         }
 
+        public string SchemaInfoTableName
+        {
+            get { return null; }
+            set { }
+        }
+
         public virtual ILogger Logger
         {
             get { return null; }

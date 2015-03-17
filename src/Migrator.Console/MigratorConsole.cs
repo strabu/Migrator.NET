@@ -26,6 +26,7 @@ namespace Migrator.MigratorConsole
 		private string _provider;
 		private string _connectionString;
 		private string _migrationsAssembly;
+        private string _schemaInfoTableName;
 		private bool _list = false;
 		private bool _trace = false;
 		private bool _dryrun = false;
@@ -136,6 +137,7 @@ namespace Migrator.MigratorConsole
 			Console.WriteLine("\t{0} {1}", "provider".PadRight(tab), "The database provider (SqlServer, MySql, Postgre)");
 			Console.WriteLine("\t{0} {1}", "connectionString".PadRight(tab), "Connection string to the database");
 			Console.WriteLine("\t{0} {1}", "migrationAssembly".PadRight(tab), "Path to the assembly containing the migrations");
+            Console.WriteLine("\t{0} {1}", "schemaInfoTableName".PadRight(tab), "optional: Path to the DB-Table that stores Versions (SchemaInfo is default)");
 			Console.WriteLine("Options:");
 			Console.WriteLine("\t-{0}{1}", "version NO".PadRight(tab), "To specific version to migrate the database to");
 			Console.WriteLine("\t-{0}{1}", "list".PadRight(tab), "List migrations");
@@ -159,6 +161,8 @@ namespace Migrator.MigratorConsole
 			Assembly asm = Assembly.LoadFrom(_migrationsAssembly);
 			
 			Migrator migrator = new Migrator(_provider, _connectionString, asm, _trace);
+            if (!string.IsNullOrEmpty(_schemaInfoTableName))
+                migrator.SchemaInfoTableName = _schemaInfoTableName;
 			migrator.args = args;
 		    migrator.DryRun = _dryrun;
 			return migrator;
@@ -195,6 +199,7 @@ namespace Migrator.MigratorConsole
 					if (i == 0) _provider = argv[i];
 					if (i == 1) _connectionString = argv[i];
 					if (i == 2) _migrationsAssembly = argv[i];
+                    if (i == 3) _schemaInfoTableName = argv[i];
 				}
 			}
 		}

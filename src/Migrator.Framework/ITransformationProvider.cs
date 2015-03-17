@@ -9,7 +9,8 @@ namespace Migrator.Framework
     /// </summary>
     public interface ITransformationProvider : IDisposable
     {
-        
+        string SchemaInfoTableName { get; set; }
+
         /// <summary>
         /// Get this provider or a NoOp provider if you are not running in the context of 'provider'.
         /// </summary>

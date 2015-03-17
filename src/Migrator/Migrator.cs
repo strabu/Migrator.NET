@@ -67,6 +67,20 @@ namespace Migrator
             _migrationLoader.CheckForDuplicatedVersion();
         }
 
+        /// <summary>
+        /// Set the name of the table in the Database that will be used to store Schema-Versions. (default: "SchemaInfo")
+        /// </summary>
+        public string SchemaInfoTableName
+        {
+            get
+            {
+                return _provider.SchemaInfoTableName;
+            }
+            set
+            {
+                _provider.SchemaInfoTableName = value;
+            }
+        }
 
         /// <summary>
         /// Returns registered migration <see cref="System.Type">types</see>.

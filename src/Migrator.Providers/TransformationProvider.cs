@@ -27,6 +27,7 @@ namespace Migrator.Providers
 	/// </summary>
 	public abstract class TransformationProvider : ITransformationProvider
 	{
+        private string _schemaInfoTableName = "SchemaInfo";
 		private ILogger _logger;
 		protected IDbConnection _connection;
 		private IDbTransaction _transaction;
@@ -43,6 +44,12 @@ namespace Migrator.Providers
 			_connectionString = connectionString;
 			_logger = new Logger(false);
 		}
+
+        public string SchemaInfoTableName
+        {
+            get { return _schemaInfoTableName; }
+            set { _schemaInfoTableName = value; }
+        }
 
 		/// <summary>
 		/// Returns the event logger
@@ -747,7 +754,7 @@ namespace Migrator.Providers
 				{
 					_appliedMigrations = new List<long>();
 					CreateSchemaInfoTable();
-					using(IDataReader reader = Select("version","SchemaInfo")){
+					using(IDataReader reader = Select("version",_schemaInfoTableName)){
 						while(reader.Read()){
                             _appliedMigrations.Add(Convert.ToInt64(reader.GetValue(0)));
 						}
@@ -764,7 +771,7 @@ namespace Migrator.Providers
 		public void MigrationApplied(long version)
 		{
 			CreateSchemaInfoTable();
-			Insert("SchemaInfo",new string[]{"version"},new string[]{version.ToString()});
+			Insert(_schemaInfoTableName,new string[]{"version"},new string[]{version.ToString()});
 			_appliedMigrations.Add(version);
 		}
 		
@@ -775,16 +782,16 @@ namespace Migrator.Providers
 		public void MigrationUnApplied(long version)
 		{
 			CreateSchemaInfoTable();
-			Delete("SchemaInfo", "version", version.ToString());
+			Delete(_schemaInfoTableName, "version", version.ToString());
 			_appliedMigrations.Remove(version);
 		}
 
 		protected void CreateSchemaInfoTable()
 		{
 			EnsureHasConnection();
-			if (!TableExists("SchemaInfo"))
+			if (!TableExists(_schemaInfoTableName))
 			{
-				AddTable("SchemaInfo", new Column("Version", DbType.Int64, ColumnProperty.PrimaryKey));
+				AddTable(_schemaInfoTableName, new Column("Version", DbType.Int64, ColumnProperty.PrimaryKey));
 			}
 		}
 
